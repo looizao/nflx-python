@@ -1,4 +1,4 @@
-from dataclasses import is_dataclass
+from dataclasses import FrozenInstanceError, is_dataclass
 from datetime import datetime
 
 import unittest
@@ -17,7 +17,13 @@ class TestCategoryUnit(unittest.TestCase):
         self.assertIsInstance(category.created_at, datetime)
 
     def test_if_created_at_is_generated_in_constructor(self):
-        category1 = Category('Movie', 'Description')
-        category2 = Category('Movie', 'Description')
+        category1 = Category(name='Movie', description='Description')
+        category2 = Category(name='Movie', description='Description')
 
         self.assertNotEqual(category1.created_at, category2.created_at)
+
+    
+    def test_is_immutable(self):
+        with self.assertRaises(FrozenInstanceError):
+            value_object = Category(name='test')
+            value_object.name = 'fake name'
