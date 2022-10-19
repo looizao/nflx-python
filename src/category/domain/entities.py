@@ -1,12 +1,36 @@
 from datetime import datetime
 from dataclasses import dataclass, field
-import uuid
+from typing import Optional
 
-@dataclass(kw_only=True, frozen=True)
-class Category:
+from __seedwork.domain.entities import Entity
 
-    id: uuid.UUID = field(default_factory=lambda: uuid.uuid4())
+@dataclass(kw_only=True, frozen=True, slots=True)  # init, repr, eq
+class Category(Entity):
+
     name: str
-    description: str
-    is_active: bool = True
-    created_at: datetime = field(default_factory=lambda: datetime.now())
+    description: Optional[str]
+    is_active: Optional[bool] = True
+
+    # pylint: disable=unnecessary-lambda
+    created_at: Optional[datetime] = field(
+        default_factory=lambda: datetime.now()
+    )
+
+    def __post_init__(self):
+        if not self.created_at:
+            self._set('created_at',  datetime.now())
+        self.validate()
+
+    def update(self, name: str, description: str):
+        self._set('name', name)
+        self._set('description', description)
+        self.validate()
+
+    def activate(self):
+        self._set('is_active', True)
+
+    def deactivate(self):
+        self._set('is_active', False)
+
+    def validate(self):
+        pass

@@ -10,7 +10,7 @@ class TestCategoryUnit(unittest.TestCase):
         self.assertTrue(is_dataclass(Category))
 
     def test_constructor(self):
-        category = Category('Movie', 'this is the description')
+        category = Category(name='Movie')
         self.assertEqual(category.name, 'Movie')
         self.assertEqual(category.description, 'this is the description')
         self.assertEqual(category.is_active, True)

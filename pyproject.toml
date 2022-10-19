@@ -1,0 +1,25 @@
+[project]
+name = ""
+version = ""
+description = ""
+authors = [
+    {name = "Luiz Souza", email = "luizo.souzajr@gmail.com"},
+]
+dependencies = [
+]
+requires-python = ">=3.10.2"
+license = {text = "MIT"}
+[project.optional-dependencies]
+
+[build-system]
+requires = ["pdm-pep517>=1.0.0"]
+build-backend = "pdm.pep517.api"
+
+[tool]
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "autopep8>=1.7.0",
+    "pylint>=2.15.4",
+    "pytest>=7.1.3",
+]

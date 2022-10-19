@@ -18,6 +18,7 @@ class ValueObject(ABC):
 @dataclass(frozen=True)
 class UniqueEntityId:
 
+    # pylint: disable=invalid-name
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
 
     def __post_init__(self):
@@ -30,6 +31,6 @@ class UniqueEntityId:
             uuid.UUID(self.id)
         except ValueError as ex:
             raise InvalidUuidException() from ex
-            
+
     def __str__(self) -> str:
         return f"{self.id}"

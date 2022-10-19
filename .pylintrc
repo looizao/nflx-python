@@ -1,0 +1,4 @@
+[MASTER]
+ignore=__pypackages__/**/*.py
+disable=
+    C0114, # missing-module-docstring
